@@ -3,7 +3,8 @@ import java.lang.reflect.InvocationTargetException;
 
 public class MoodAnalyserFactory
 {
-    public static MoodAnalyzer moodAnalyzerObject() throws MoodAnalysisException {
+    public static MoodAnalyzer moodAnalyzerObject() throws MoodAnalysisException
+    {
         try
         {
             Class<?> moodAnalyzerClass = Class.forName("MoodAnalyzer");
@@ -17,7 +18,7 @@ public class MoodAnalyserFactory
         }
         catch (NoSuchMethodException e)
         {
-            e.printStackTrace();
+            throw new MoodAnalysisException("Method not found",MoodAnalysisException.UserDefinedDataType.NO_SUCH_METHOD);
         }
         catch (IllegalAccessException e)
         {
