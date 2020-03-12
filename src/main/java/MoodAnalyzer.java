@@ -14,8 +14,10 @@ public class MoodAnalyzer
     {
         this.message = message;
     }
-    public String analyseMood() throws MoodAnalysisException {
-        try {
+    public String analyseMood() throws MoodAnalysisException
+    {
+        try
+        {
             if (message.length()==0)
                 throw new MoodAnalysisException("Mood should not be empty",MoodAnalysisException.UserDefinedDataType.EMPTY_EXCEPTION);
             else if (message.contains("Sad"))
@@ -29,7 +31,8 @@ public class MoodAnalyzer
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MoodAnalyzer that = (MoodAnalyzer) o;
@@ -37,7 +40,8 @@ public class MoodAnalyzer
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return Objects.hash(message);
     }
 }
