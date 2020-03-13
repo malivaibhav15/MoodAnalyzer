@@ -12,7 +12,7 @@ public class MoodAnalyserFactory
         }
         catch (ClassNotFoundException e)
         {
-            e.printStackTrace();
+            throw new MoodAnalysisException("class not found",MoodAnalysisException.UserDefinedDataType.NO_SUCH_CLASS);
         }
         catch (NoSuchMethodException e)
         {
