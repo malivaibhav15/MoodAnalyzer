@@ -39,7 +39,8 @@ public class MoodAnalyserFactory
         }
         return null;
     }
-    public static Object invokeMethod(Object moodAnalyserObject, String analyzer) {
+    public static Object invokeMethod(Object moodAnalyserObject, String analyzer) throws MoodAnalysisException
+    {
         try {
             Class objectClass = moodAnalyserObject.getClass();
             Method moodMethod = objectClass.getMethod(analyzer);
@@ -50,7 +51,7 @@ public class MoodAnalyserFactory
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            throw new MoodAnalysisException("Method not found",MoodAnalysisException.UserDefinedDataType.NO_SUCH_METHOD);
         }
         return null;
     }
