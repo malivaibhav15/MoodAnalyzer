@@ -130,5 +130,19 @@ public class TestCases
              e.printStackTrace();
          }
      }
+     @Test
+    public void GivenHappyMessage_WhenImproperMethod_ShouldThrowMoodAnalysisException()
+     {
+         try
+         {
+             Constructor constructor = MoodAnalyserFactory.getConstructor("MoodAnalyzer",String.class);
+             Object moodAnalyserObject = MoodAnalyserFactory.createMoodAnalyser(constructor,"I am in Happy mood");
+             Object mood = MoodAnalyserFactory.invokeMethod(moodAnalyserObject, "analysMood");
+         }
+         catch (MoodAnalysisException e)
+         {
+             Assert.assertEquals(MoodAnalysisException.UserDefinedDataType.NO_SUCH_METHOD,e.userDefinedObject);
+         }
+     }
 
 }
