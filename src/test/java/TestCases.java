@@ -103,5 +103,17 @@ public class TestCases
             Assert.assertEquals(MoodAnalysisException.UserDefinedDataType.NO_SUCH_CLASS,e.userDefinedObject);
         }
     }
+    @Test
+    public void givenMethodName_WithParameterisedConstructor_WhenWrong_ShouldThrowException()
+    {
+        try
+        {
+            MoodAnalyserFactory.getConstructor("MoodAnalyzer",String.class);
+        }
+        catch (MoodAnalysisException e)
+        {
+            Assert.assertEquals(MoodAnalysisException.UserDefinedDataType.NO_SUCH_METHOD,e.userDefinedObject);
+        }
+    }
 
 }
