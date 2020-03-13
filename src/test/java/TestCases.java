@@ -2,6 +2,8 @@ import com.sun.org.apache.bcel.internal.generic.PUSH;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.Constructor;
+
 public class TestCases
 {
     @Test
@@ -52,7 +54,7 @@ public class TestCases
     public void givenObject_WhenEquals_ShouldReturnTrue() throws MoodAnalysisException
     {
         MoodAnalyzer moodAnalyser = new MoodAnalyzer();
-        MoodAnalyzer moodAnalyserObject = MoodAnalyserFactory.moodAnalyzerObject();
+        Constructor<?> moodAnalyserObject = MoodAnalyserFactory.getConstructor("MoodAnalyzer");
         boolean result=moodAnalyser.equals(moodAnalyserObject);
         Assert.assertTrue("true",result);
     }
@@ -61,7 +63,7 @@ public class TestCases
     {
         try
         {
-            MoodAnalyserFactory.moodAnalyzerObject();
+            MoodAnalyserFactory.getConstructor("MoodAnalyzer");
         }
         catch (MoodAnalysisException e)
         {
@@ -73,11 +75,21 @@ public class TestCases
     {
         try
         {
-            MoodAnalyserFactory.moodAnalyzerObject();
+            MoodAnalyserFactory.getConstructor("MoodAnalyzer");
         }
         catch (MoodAnalysisException e)
         {
             Assert.assertEquals(MoodAnalysisException.UserDefinedDataType.NO_SUCH_METHOD,e.userDefinedObject);
         }
     }
+    @Test
+    public void givenObject_WithPrameterisedConstructor_WhenEquals_ShouldReturnTrue() throws MoodAnalysisException
+    {
+        MoodAnalyzer moodAnalyser = new MoodAnalyzer("Partameter");
+        Constructor constructor = MoodAnalyserFactory.getConstructor("MoodAnalyzer",String.class);
+        MoodAnalyzer moodAnalyserObject = MoodAnalyserFactory.createMoodAnalyser(constructor,"Partameter");
+        boolean result=moodAnalyser.equals(moodAnalyserObject);
+        Assert.assertTrue("true",result);
+    }
+
 }
