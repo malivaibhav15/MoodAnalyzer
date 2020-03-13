@@ -16,9 +16,8 @@ public class MoodAnalyserFactory
         }
         catch (NoSuchMethodException e)
         {
-            e.printStackTrace();
+            throw new MoodAnalysisException("Method not found",MoodAnalysisException.UserDefinedDataType.NO_SUCH_METHOD);
         }
-        return null;
     }
     public static MoodAnalyzer createMoodAnalyser(Constructor constructor, Object ... message)throws MoodAnalysisException {
         try
