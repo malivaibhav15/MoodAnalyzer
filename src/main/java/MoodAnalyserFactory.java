@@ -3,22 +3,27 @@ import java.lang.reflect.InvocationTargetException;
 
 public class MoodAnalyserFactory
 {
-    public static MoodAnalyzer moodAnalyzerObject() throws MoodAnalysisException
+    public static Constructor getConstructor(String className,Class ... paramters) throws MoodAnalysisException
     {
         try
         {
-            Class<?> moodAnalyzerClass = Class.forName("MoodAnalyzer");
-            Constructor<?> constructor = moodAnalyzerClass.getConstructor();
-            Object moodAnalyzerObject = constructor.newInstance();
-            return  (MoodAnalyzer) moodAnalyzerObject;
+            Class moodAnalyzerClass = Class.forName(className);
+            return moodAnalyzerClass.getConstructor(paramters);
         }
         catch (ClassNotFoundException e)
         {
-            throw new MoodAnalysisException("Class not found",MoodAnalysisException.UserDefinedDataType.NO_SUCH_CLASS);
+            e.printStackTrace();
         }
         catch (NoSuchMethodException e)
         {
-            throw new MoodAnalysisException("Method not found",MoodAnalysisException.UserDefinedDataType.NO_SUCH_METHOD);
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public static MoodAnalyzer createMoodAnalyser(Constructor constructor, Object ... message)throws MoodAnalysisException {
+        try
+        {
+            return (MoodAnalyzer) constructor.newInstance(message);
         }
         catch (IllegalAccessException e)
         {
