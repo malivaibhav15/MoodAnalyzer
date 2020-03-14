@@ -62,7 +62,7 @@ public class MoodAnalyserFactory
             Field field = className.getDeclaredField(fieldName);
             field.set(moodObject,fieldValue);
         } catch (NoSuchFieldException e) {
-            e.printStackTrace();
+            throw new MoodAnalysisException(e.getMessage(),MoodAnalysisException.UserDefinedDataType.NO_SUCH_FIELD);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
 

@@ -144,5 +144,16 @@ public class TestCases
              Assert.assertEquals(MoodAnalysisException.UserDefinedDataType.NO_SUCH_METHOD,e.userDefinedObject);
          }
      }
-
+    @Test
+    public void givenHappyMessage_WithDefaultConstructor_ShouldReturnHappy() {
+        try {
+            Constructor<?> constructor = MoodAnalyserFactory.getConstructor("MoodAnalyzer");
+            Object moodObject = MoodAnalyserFactory.createMoodAnalyser(constructor);
+            MoodAnalyserFactory.setFieldValue(moodObject, "message", "I am in Happy mood");
+            Object mood = MoodAnalyserFactory.invokeMethod(moodObject, "analyseMood");
+            Assert.assertEquals("Happy", mood);
+        } catch (MoodAnalysisException e) {
+            e.printStackTrace();
+        }
+    }
 }
