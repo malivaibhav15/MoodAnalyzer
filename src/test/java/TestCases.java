@@ -156,4 +156,27 @@ public class TestCases
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void givenHappyMessage_WithDefaultConstructor_WhenImproper_ShouldThrowMoodAnalyserException() {
+        try {
+            Constructor<?> constructor = MoodAnalyserFactory.getConstructor("MoodAnalyzer");
+            Object moodObject =  MoodAnalyserFactory.createMoodAnalyser(constructor);
+            MoodAnalyserFactory.setFieldValue(moodObject,"massage","I am in Happy mood");
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.UserDefinedDataType.NO_SUCH_FIELD,e.userDefinedObject);
+        }
+    }
+    @Test
+    public void SettingNullMessage_WithReflector_ShouldThrowException() throws MoodAnalysisException{
+        try {
+            Constructor<?> constructor = MoodAnalyserFactory.getConstructor("MoodAnalyzer");
+            Object moodObject =  MoodAnalyserFactory.createMoodAnalyser(constructor);
+            MoodAnalyserFactory.setFieldValue(moodObject,"message",null);
+            MoodAnalyserFactory.invokeMethod(moodObject,"analyseMood");
+        } catch (MoodAnalysisException e) {
+            Assert.assertEquals(MoodAnalysisException.UserDefinedDataType.METHOD_INVOCATION_ISSUE,e.userDefinedObject);
+        }
+    }
+
 }
