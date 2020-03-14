@@ -2,7 +2,7 @@ import java.util.Objects;
 
 public class MoodAnalyzer
 {
-    private String message;
+    String message;
     public static void main(String[] args)
     {
         System.out.println("Welcome to mood analyzer problem");
